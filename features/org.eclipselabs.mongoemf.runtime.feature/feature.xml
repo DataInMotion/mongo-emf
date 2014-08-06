@@ -45,4 +45,8 @@
          id="org.eclipselabs.mongoemf.api.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipselabs.mongoemf.query.mongodb.feature"
+         version="0.0.0"/>
+
 </feature>
