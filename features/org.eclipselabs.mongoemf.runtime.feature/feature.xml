@@ -30,10 +30,6 @@
          version="0.0.0"/>
 
    <includes
-         id="org.eclipselabs.mongoemf.log.feature"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipselabs.mongoemf.query.simple.feature"
          version="0.0.0"/>
 

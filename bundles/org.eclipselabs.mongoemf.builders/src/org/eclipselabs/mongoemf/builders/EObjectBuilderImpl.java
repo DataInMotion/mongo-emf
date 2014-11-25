@@ -125,8 +125,9 @@ public class EObjectBuilderImpl implements EObjectBuilder
 
 		// All references are mapped as key / value pairs with the key being the reference name.
 
-		for (EReference reference : eClass.getEAllReferences())
+		for (EReference reference : eClass.getEAllReferences()){
 			buildReference(collection, dbObject, resource, eObject, reference);
+		}
 
 		return eObject;
 	}
@@ -353,7 +354,7 @@ public class EObjectBuilderImpl implements EObjectBuilder
 		if (!referenceResolvesProxies)
 		{
 			// When referenceResolvedProxies is false, we must resolve the proxy in place and get the referenced object
-
+			System.err.println(resolvedProxyURI);
 			eObject = resourceSet.getEObject(resolvedProxyURI, true);
 		}
 		else
