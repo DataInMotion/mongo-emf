@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipselabs.mongoemf.api.feature"
-      label="MongoEMF API Runtime"
+      label="%featureName"
       version="0.8.0.qualifier"
       provider-name="EclipseLabs">
 

@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	 <parent>
+		<groupId>org.eclipselabs.mongoemf</groupId>
+		<artifactId>org.eclipselabs.mongoemf.parent</artifactId>
+		<version>0.8.0-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+    </parent>
+	<artifactId>org.eclipselabs.mongoemf.repository.deploy</artifactId>
+	<packaging>pom</packaging>
+	<name>The Mirrored and appended p2 Repo</name>
+
+	<profiles>
+		<profile>
+			<id>hudson</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-p2-extras-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>mirror</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>mirror</goal>
+								</goals>
+								<configuration>
+									<source>
+										<!-- source repositories to mirror from -->
+										<repository>
+											<url>http://devel.data-in-motion.biz/nexus/content/unzip/dim_server_platform_core/org/eclipselabs/mongoemf/de.dim.server.core.update/0.1.0-SNAPSHOT/de.dim.server.core.update-0.1.0-SNAPSHOT.zip-unzip/</url>
+											<layout>p2</layout>
+										</repository>
+									</source>
+
+									<destination>${repo}</destination>
+
+									<!-- whether to append to the target repository content -->
+									<append>true</append>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

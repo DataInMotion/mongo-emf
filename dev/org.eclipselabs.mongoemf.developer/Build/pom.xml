@@ -5,7 +5,7 @@
   
   <groupId>mongo-emf</groupId>
   <artifactId>build</artifactId>
-  <version>0.7.1-SNAPSHOT</version>
+  <version>0.8.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -35,115 +35,110 @@
     <module>../../../dev/org.eclipselabs.mongo.emf.repository</module>
   </modules>
 
-  <properties>
-  	<tycho-version>0.14.0</tycho-version>
-		<tycho-extras-version>0.14.0</tycho-extras-version>
-  	<targets>/Users/bhunt/Documents/Programming/Code/Targets</targets>
-	  <project.build.sourceEncoding>MacRoman</project.build.sourceEncoding>
-  </properties>
-  
- 
-  <build>
-    <plugins>
-    
-      <plugin>
-        <!-- enable tycho build extension -->
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-maven-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <extensions>true</extensions>
-      </plugin>
-      
+  	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>eclipse.gyrex</id>
+			<layout>p2</layout>
+			<url>http://devel.data-in-motion.biz/nexus/content/unzip/dim_server_platform_core/org/eclipse/gyrex/releng/gyrex-repository/1.0.0-SNAPSHOT/gyrex-repository-1.0.0-SNAPSHOT.zip-unzip</url>
+		</repository>
+		<repository>
+			<id>eMongo</id>
+			<url>http://devel.data-in-motion.biz/nexus/content/unzip/DIM_release_unzip/org/eclipselabs/emongo/org.eclipselabs.emongo.update/1.1.0/org.eclipselabs.emongo.update-1.1.0.zip-unzip/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>eModeling</id>
+			<url>http://devel.data-in-motion.biz/nexus/content/unzip/DIM_release_unzip/org/eclipselabs/emodelling/org.eclipselabs.emodelling.update/1.0.0/org.eclipselabs.emodelling.update-1.0.0.zip-unzip/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+	</repositories>
+
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-  				<source>1.6</source>
-  				<target>1.6</target>
+					<strictSrcIncludes>false</strictSrcIncludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho-extras-version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-custom-bundle-plugin</artifactId>
+				<version>${tycho-extras-version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<!-- With this tag tycho will also look in the nexus -->
+					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
 				</configuration>
 			</plugin>
-      
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-source-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <executions>
-          <execution>
-            <id>plugin-source</id>
-            <goals>
-              <goal>plugin-source</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-        <version>${tycho-version}</version>
-        <configuration>
-          <target>
-            <artifact>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
-              <classifier>../../dev/org.eclipselabs.mongo.emf.developer/Targets/Mongo</classifier>
-            </artifact>
-          </target>
-          
-          <!-- configure the p2 target environments for multi-platform build -->
-          <environments>
-            <environment>
-               <os>linux</os>
-               <ws>gtk</ws>
-               <arch>x86_64</arch>
-             </environment>
-           <environment>
-              <os>linux</os>
-              <ws>gtk</ws>
-              <arch>x86</arch>
-            </environment>
-            <environment>
-               <os>win32</os>
-               <ws>win32</ws>
-               <arch>x86</arch>
-             </environment>
-           </environments>
-         </configuration>
-      </plugin>
-  
-  		<!-- Commented it out because it's throwing an exception
-      <plugin>
-        <groupId>org.eclipse.tycho.extras</groupId>
-        <artifactId>tycho-source-feature-plugin</artifactId>
-        <version>${tycho-extras-version}</version>
-        <executions>
-          <execution>
-            <id>source-feature</id>
-            <phase>package</phase>
-            <goals>
-              <goal>source-feature</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-p2-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <executions>
-          <execution>
-            <id>attached-p2-metadata</id>
-            <phase>package</phase>
-            <goals>
-              <goal>p2-metadata</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
- 			-->
-      
+	  
       <!-- FindBugs -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
