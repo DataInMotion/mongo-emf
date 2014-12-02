@@ -3,15 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>build</artifactId>
-		<groupId>mongo-emf</groupId>
-		<version>0.7.1-SNAPSHOT</version>
-		<relativePath>../../dev/org.eclipselabs.mongo.emf.developer/Build/pom.xml</relativePath>
-	</parent>
+    <groupId>org.eclipselabs.mongoemf</groupId>
+	<artifactId>org.eclipselabs.mongoemf.parent</artifactId>
+	<version>0.8.0-SNAPSHOT</version>
+	<relativePath>../../maven/parent/pom.xml</relativePath>
+  </parent>
 
-  <groupId>mongo-emf</groupId>
-  <artifactId>org.eclipselabs.mongo.emf.junit</artifactId>
-  <version>0.7.1.qualifier</version>
+  <artifactId>org.eclipselabs.mongoemf.junit</artifactId>
   <packaging>eclipse-test-plugin</packaging>
 
   <build>
