@@ -30,7 +30,7 @@
 									<source>
 										<!-- source repositories to mirror from -->
 										<repository>
-											<url>http://devel.data-in-motion.biz/nexus/content/unzip/dim_server_platform_core/org/eclipselabs/mongoemf/org.eclipselabs.mongo.emf.repository/0.8.0-SNAPSHOT/org.eclipselabs.mongo.emf.repository-0.8.0-SNAPSHOT.zip.zip-unzip/</url>
+											<url>http://devel.data-in-motion.biz/nexus/content/unzip/dim_server_platform_core/org/eclipselabs/mongoemf/org.eclipselabs.mongo.emf.repository/0.8.0-SNAPSHOT/org.eclipselabs.mongo.emf.repository-0.8.0-SNAPSHOT.zip-unzip/</url>
 											<layout>p2</layout>
 										</repository>
 									</source>
