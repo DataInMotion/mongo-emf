@@ -96,8 +96,13 @@ public class MongoInputStream extends InputStream implements URIConverter.Loadab
 			MongoQuery mongoQuery = queryEngine.buildDBObjectQuery(uri);
 			DBCursor resultCursor = null;
 
-			if (mongoQuery.getProjection() == null)
-				resultCursor = collection.find(mongoQuery.getFilter());
+			if (mongoQuery.getProjection() == null){
+				if(Boolean.TRUE.equals(options.get(Options.OPTION_LAZY_RESULT_LOADING))){
+					resultCursor = collection.find(mongoQuery.getFilter(), createQueryProjectionForLazyLoading());
+				} else {
+					resultCursor = collection.find(mongoQuery.getFilter());
+				}
+			}
 			else
 				resultCursor = collection.find(mongoQuery.getFilter(), mongoQuery.getProjection());
 
@@ -145,6 +150,19 @@ public class MongoInputStream extends InputStream implements URIConverter.Loadab
 				response.put(URIConverter.RESPONSE_TIME_STAMP_PROPERTY, dbObject.get(Keywords.TIME_STAMP_KEY));
 			}
 		}
+	}
+
+	/**
+	 * @return the {@link DBObject} representing
+	 */
+	private DBObject createQueryProjectionForLazyLoading() {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put(Keywords.ID_KEY, 1);
+		map.put(Keywords.ECLASS_KEY, 1);
+		map.put(Keywords.EXTRINSIC_ID_KEY, 1);
+		DBObject proxyProjection = new BasicDBObject(map);;
+		
+		return proxyProjection;
 	}
 
 	@Override

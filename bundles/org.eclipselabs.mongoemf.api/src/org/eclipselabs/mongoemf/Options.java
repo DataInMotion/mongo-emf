@@ -11,6 +11,7 @@
 
 package org.eclipselabs.mongoemf;
 
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 
 /**
@@ -20,6 +21,17 @@ import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 public interface Options
 {
 
+	/**
+	 * When you load a resource with a query, only information that are necessary to build a proxy 
+	 * will be loaded from the db. Thus the results will be lazy while iterating over the returned 
+	 * {@link ECollections}.
+	 * 
+	 * This only works with query without projection.
+	 * 
+	 * value type: Boolean
+	 */
+	String OPTION_LAZY_RESULT_LOADING = "LAZY_RESULT_LOADING";
+	
 	/**
 	 * When you load an object with cross-document references, they will be proxies. When you access
 	 * the reference, EMF will resolve the proxy and you can then access the attributes. This can
